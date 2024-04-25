@@ -107,6 +107,9 @@ case "${lang}" in
     "surface")
         org="connorlay"
         ;;
+    "swift")
+        org="alex-pinkus"
+        ;;
     "toml")
         org="ikatyang"
         ;;
@@ -148,6 +151,14 @@ else
     git clone "${site}/${org}/${repo}.git" \
         --single-branch --branch "${branch}" --quiet "${lang}"
 fi
+
+# Fix swift parser.c file
+if [ "${lang}" == "swift" ]
+then
+    echo "Copying swift parser files"
+    cp -R swift-parser/. "${lang}/${sourcedir}/"
+fi
+
 # We have to go into the source directory to compile, because some
 # C files refer to files like "../../common/scanner.h".
 cd "${lang}/${sourcedir}"
